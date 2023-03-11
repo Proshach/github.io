@@ -20,6 +20,31 @@
     </style>
 
 
+  <title>Moving Circle Example</title>
+  <style>
+    #circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: red;
+      position: absolute;
+    }
+  </style>
+<body>
+  <div id="circle"></div>
+  <script>
+    var circle = document.getElementById('circle');
+    var xPosition = 0;
+    var yPosition = 0;
+
+    function moveCircle() {
+      xPosition += 5;
+      yPosition += 5;
+      circle.style.transform = 'translate(' + xPosition + 'px, ' + yPosition + 'px)';
+    }
+
+    setInterval(moveCircle, 50);
+  </script>
 
 </body>
 
