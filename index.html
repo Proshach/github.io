@@ -6,12 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proshach on github</title>
   <style>
-/*     body {
+    body {
+      background: url("moonMtkili.jpg") no-repeat center center/cover;
       background-color: grey;
-/*       background-image: <img src="moonMtkili.jpg" alt="Moon over Mtkili Mountain" /> */
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
       opacity: 0.8;
     }
     #circle {
@@ -20,35 +17,31 @@
       border-radius: 50%;
       background-color: white;
       position: absolute;
-    } */
+    }
     img {
-  max-width: 100%;
-  height: auto;
-  width: 100%;
-}
-
+      max-width: 100%;
+      height: auto;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
   <h1>Astro Photography Project 1</h1>
   <img src="moonMtkili.jpg" alt="Moon over Mtkili Mountain" />
-  
-    <div id="image-container"></div>
-    <script>
-      const apiKey = 'hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ ';
-      const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
-      fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-          const imageContainer = document.querySelector('#image-container');
-          const image = document.createElement('img');
-          image.src = data.hdurl;
-          imageContainer.appendChild(image);
-        })
-        .catch(error => console.error(error));
-    </script>
-  
+  <script>
+    const apiKey = 'hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ';
+    const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const image = document.createElement('img');
+        image.src = data.hdurl;
+        document.body.appendChild(image);
+      })
+      .catch(error => console.error(error));
+  </script>
 
   <div id="circle"></div>
   <script>
