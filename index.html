@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,17 +8,27 @@
   <title>Proshach on github</title>
   <style>
     body {
-/*       background: url("moonMtkili.jpg") no-repeat center center/cover; */
+      /*       background: url("moonMtkili.jpg") no-repeat center center/cover; */
       background-color: grey;
       opacity: 0.8;
     }
-    #circle {
+
+    #satellite {
+      font-size: 50px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+
+    #satellite {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       background-color: white;
       position: absolute;
     }
+
     img {
       max-width: 100%;
       height: auto;
@@ -25,9 +36,10 @@
     }
   </style>
 </head>
+
 <body>
   <h1>Astro Photography Project 1</h1>
-<!--   <img src="moonMtkili.jpg" alt="Moon over Mtkili Mountain" /> -->
+  <!--   <img src="moonMtkili.jpg" alt="Moon over Mtkili Mountain" /> -->
 
   <script>
     const apiKey = 'hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ';
@@ -43,17 +55,19 @@
       .catch(error => console.error(error));
   </script>
 
-  <div id="circle"></div>
+  <div id="satellite">&#128657;</div>
+
   <script>
-    var circle = document.getElementById('circle');
+    var satellite = document.getElementById('satellite');
     var xPosition = 0;
     var yPosition = 0;
-    function moveCircle() {
+    function movesatellite() {
       xPosition += 5;
       yPosition += 5;
-      circle.style.transform = 'translate(' + xPosition + 'px, ' + yPosition + 'px)';
+      satellite.style.transform = 'translate(' + xPosition + 'px, ' + yPosition + 'px)';
     }
-    setInterval(moveCircle, 50);
+    setInterval(movesatellite, 50);
   </script>
 </body>
+
 </html>
