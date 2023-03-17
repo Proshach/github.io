@@ -2,31 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proshach on github</title>
   <style>
     body {
-      /*       background: url("moonMtkili.jpg") no-repeat center center/cover; */
       background-color: grey;
       opacity: 0.8;
     }
 
-    #satellite {
-      font-size: 50px;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-
-    #satellite {
+    .satellite {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: white;
       position: absolute;
+    }
+
+    .orange {
+      background-color: rgb(199, 169, 113);
+    }
+
+    .green {
+      background-color: rgb(119, 161, 119);
+    }
+
+    .blue {
+      background-color: rgb(117, 117, 182);
     }
 
     img {
@@ -39,38 +41,47 @@
 
 <body>
   <h1>Astro Photography Project 1</h1>
-  <!--   <img src="moonMtkili.jpg" alt="Moon over Mtkili Mountain" /> -->
 
   <script>
-    const apiKey = 'hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ';
+    const apiKey = "hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ";
     const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
     fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        const image = document.createElement('img');
+      .then((response) => response.json())
+      .then((data) => {
+        const image = document.createElement("img");
         image.src = data.hdurl;
         document.body.appendChild(image);
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   </script>
 
-  <div id="satellite">&#128657;</div>
-
-<!-- 
-<div id="satellite"><img src="path/to/your/image.jpg"></div>
--->
+  <div id="orbit">
+    <div class="satellite orange"></div>
+    <div class="satellite green"></div>
+    <div class="satellite blue"></div>
+  </div>
 
   <script>
-    var satellite = document.getElementById('satellite');
-    var xPosition = 0;
-    var yPosition = 0;
-    function movesatellite() {
-      xPosition += 5;
-      yPosition += 5;
-      satellite.style.transform = 'translate(' + xPosition + 'px, ' + yPosition + 'px)';
+    var satellites = document.querySelectorAll(".satellite");
+    var orbit = document.getElementById("orbit");
+    var orbitRadius = orbit.offsetWidth / 2;
+    var angles = [0, 1.5, 3];
+    var speeds = [0.01, 0.03, 0.06];
+
+    function moveSatellite(satellite, angle, speed) {
+      setInterval(function () {
+        angle += speed;
+        var xPosition = orbitRadius * Math.cos(angle);
+        var yPosition = orbitRadius * Math.sin(angle);
+        satellite.style.transform =
+          "translate(" + xPosition + "px, " + yPosition + "px)";
+      }, 80);
     }
-    setInterval(movesatellite, 50);
+
+    for (var i = 0; i < satellites.length; i++) {
+      moveSatellite(satellites[i], angles[i], speeds[i]);
+    }
   </script>
 </body>
 
