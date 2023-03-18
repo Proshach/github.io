@@ -1,7 +1,4 @@
-<label>
-  <input type="radio" name="thanks-to-nasa" id="nasa-radio">
-  Thanks to NASA
-</label>
+
 
   document.getElementById('nasa-radio').addEventListener('click', function() {
     window.location.href = 'https://apod.nasa.gov/apod/archivepix.html';
