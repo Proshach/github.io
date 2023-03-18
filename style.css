@@ -1,0 +1,31 @@
+  <style>
+    body {
+      background-color: grey;
+      opacity: 0.8;
+    }
+
+    .satellite {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .orange {
+      background-color: rgb(199, 169, 113);
+    }
+
+    .green {
+      background-color: rgb(119, 161, 119);
+    }
+
+    .blue {
+      background-color: rgb(117, 117, 182);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      width: 100%;
+    }
+  </style>
