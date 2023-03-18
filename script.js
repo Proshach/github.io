@@ -1,5 +1,5 @@
 function sayHello() {
-  alert("Hello, world!");
+  alert("Click on your favorite planet and discover your secret world !");
 }
 
 
