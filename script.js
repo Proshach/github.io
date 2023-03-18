@@ -2,7 +2,7 @@ function sayHello() {
   alert("Hello, world!");
 }
 
-<script>
+
   const apiKey = "hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ";
   const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
@@ -19,9 +19,9 @@ function sayHello() {
   }
 
   fetchImage();
-</script>
 
- <script>
+
+ 
     var satellites = document.querySelectorAll(".satellite");
     var orbit = document.getElementById("orbit");
     var orbitRadius = orbit.offsetWidth / 2;
@@ -41,4 +41,4 @@ function sayHello() {
     for (var i = 0; i < satellites.length; i++) {
       moveSatellite(satellites[i], angles[i], speeds[i]);
     }
-  </script>
+  
