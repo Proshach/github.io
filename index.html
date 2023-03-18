@@ -13,7 +13,7 @@
 <body>
   <h1>Astro Photography Project 1</h1>
 
-  <script>
+ <script>
     const apiKey = "hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ";
     const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
@@ -28,15 +28,7 @@
   </script>
 
   <div id="orbit">
-    <div class="satellite orange">
-      <div class="menu">
-        <ul>
-          <li><a href="#">Option 1</a></li>
-          <li><a href="#">Option 2</a></li>
-          <li><a href="#">Option 3</a></li>
-        </ul>
-      </div>
-    </div>
+    <div class="satellite orange"></div>
     <div class="satellite green"></div>
     <div class="satellite blue"></div>
   </div>
@@ -58,5 +50,10 @@
       }, 80);
     }
 
-    for (var i = 0; i <
-</script>
+    for (var i = 0; i < satellites.length; i++) {
+      moveSatellite(satellites[i], angles[i], speeds[i]);
+    }
+  </script>
+  </body>
+
+</html>
