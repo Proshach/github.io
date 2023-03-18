@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -36,6 +35,33 @@
       height: auto;
       width: 100%;
     }
+
+    .menu {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu ul li {
+      margin: 5px 0;
+    }
+
+    .menu ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .menu ul li a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
@@ -57,7 +83,15 @@
   </script>
 
   <div id="orbit">
-    <div class="satellite orange"></div>
+    <div class="satellite orange">
+      <div class="menu">
+        <ul>
+          <li><a href="#">Option 1</a></li>
+          <li><a href="#">Option 2</a></li>
+          <li><a href="#">Option 3</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="satellite green"></div>
     <div class="satellite blue"></div>
   </div>
@@ -79,10 +113,4 @@
       }, 80);
     }
 
-    for (var i = 0; i < satellites.length; i++) {
-      moveSatellite(satellites[i], angles[i], speeds[i]);
-    }
-  </script>
-</body>
-
-</html>
+    for (var i = 0; i <
