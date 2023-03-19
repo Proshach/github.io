@@ -4,68 +4,18 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Proshach on github</title>
-
-
+  <title>Proshach on github</title>
   <link rel="stylesheet" type="text/css" href="style.css">
-   
 </head>
-
 <body>
   <h1>Photo of the day Courtesy of NASA</h1>
-
- 
- <label>
-  <input type="radio" name="thanks-to-nasa" onclick="window.location.href='https://apod.nasa.gov/apod/archivepix.html'">
-  NASA archive since 2015
-</label>
-   
-
-<!--  <script>
-    const apiKey = "hNXu2p56bBRXQnBxzntuVFpCxu07T4gxQNQVS9aQ";
-    const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
-
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        const image = document.createElement("img");
-        image.src = data.hdurl;
-        document.body.appendChild(image);
-      })
-      .catch((error) => console.error(error));
-  </script>
- -->
+  <button onclick="window.location.href='https://apod.nasa.gov/apod/archivepix.html'">NASA archive since 2015</button>
   <div id="orbit">
     <div class="satellite orange"></div>
     <div class="satellite green"></div>
     <div class="satellite blue"></div>
   </div>
-
-<!--   <script>
-    var satellites = document.querySelectorAll(".satellite");
-    var orbit = document.getElementById("orbit");
-    var orbitRadius = orbit.offsetWidth / 2;
-    var angles = [0, 1.5, 3];
-    var speeds = [0.01, 0.03, 0.06];
-
-    function moveSatellite(satellite, angle, speed) {
-      setInterval(function () {
-        angle += speed;
-        var xPosition = orbitRadius * Math.cos(angle);
-        var yPosition = orbitRadius * Math.sin(angle);
-        satellite.style.transform =
-          "translate(" + xPosition + "px, " + yPosition + "px)";
-      }, 80);
-    }
-
-    for (var i = 0; i < satellites.length; i++) {
-      moveSatellite(satellites[i], angles[i], speeds[i]);
-    }
-  </script> -->
-   <script src="script.js"></script>
-
+  <script defer src="script.js"></script>
   <a href="javascript:sayHello()">About this project...</a>
-  </body>
-
+</body>
 </html>
