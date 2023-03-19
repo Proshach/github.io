@@ -1,31 +1,34 @@
-  
-    body {
-      background-color: grey;
-      opacity: 0.8;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: grey;
+}
 
-    .satellite {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      position: absolute;
-    }
 
-    .orange {
-      background-color: rgb(199, 169, 113);
-    }
 
-    .green {
-      background-color: rgb(119, 161, 119);
-    }
+.satellite {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+}
 
-    .blue {
-      background-color: rgb(117, 117, 182);
-    }
+.orange {
+    background-color: rgb(199, 169, 113);
+}
 
-    img {
-      max-width: 100%;
-      height: auto;
-      width: 100%;
-    }
-  
+.green {
+    background-color: rgb(119, 161, 119);
+}
+
+.blue {
+    background-color: rgb(117, 117, 182);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
