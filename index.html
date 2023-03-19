@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proshach on github</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
+
 <body>
   <h1>Photo of the day Courtesy of NASA</h1>
   <button onclick="window.location.href='https://apod.nasa.gov/apod/archivepix.html'">NASA archive since 2015</button>
+
+
   <div id="orbit">
     <div class="satellite orange"></div>
     <div class="satellite green"></div>
     <div class="satellite blue"></div>
   </div>
+
+  <button id="explore-planets-btn">Explore the Planets</button>
+
+  <!-- Add the pop-up window/modal to your HTML code -->
+  <div id="explore-planets-modal">
+    <h2>Click on your favorite planet and discover your secret world!</h2>
+    <p>Please select a planet:</p>
+    <ul>
+      <li><a href="#">Mercury</a></li>
+      <li><a href="#">Venus</a></li>
+      <li><a href="#">Earth</a></li>
+      <li><a href="#">Mars</a></li>
+      <li><a href="#">Jupiter</a></li>
+      <li><a href="#">Saturn</a></li>
+      <li><a href="#">Uranus</a></li>
+      <li><a href="#">Neptune</a></li>
+    </ul>
+    <button id="close-modal-btn">Close</button>
+  </div>
+
   <script defer src="script.js"></script>
-  <a href="javascript:sayHello()">About this project...</a>
+
 </body>
+
 </html>
