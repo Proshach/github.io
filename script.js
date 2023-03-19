@@ -1,4 +1,4 @@
-const satellites = document.querySelectorAll(".satellite");
+ /* const satellites = document.querySelectorAll(".satellite");
 const orbit = document.getElementById("orbit");
 const orbitRadius = orbit.offsetWidth / 2;
 
@@ -19,6 +19,8 @@ function setupSatellites() {
   });
 }
 
+
+ */
 setupSatellites();
 
 document.getElementById("nasa-radio").addEventListener("click", function () {
