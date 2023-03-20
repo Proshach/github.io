@@ -1,4 +1,145 @@
+/* Apply default styling to all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style the body element */
 body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Style the header element */
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Style the button elements */
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0062cc;
+}
+
+/* Style the orbit container and satellite elements */
+#orbit {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.satellite {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 20px;
+  transition: transform 0.3s ease;
+}
+
+.satellite.orange {
+  background-color: #ffa500;
+}
+
+.satellite.green {
+  background-color: #00b300;
+}
+
+.satellite.blue {
+  background-color: #0077be;
+}
+
+.satellite:hover {
+  transform: scale(1.2);
+}
+
+/* Style the Explore Planets button and modal */
+#explore-planets-btn {
+  display: block;
+  margin: 50px auto 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#explore-planets-btn:hover {
+  background-color: #0062cc;
+}
+
+#explore-planets-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+#explore-planets-modal h2 {
+  color: #fff;
+  font-size: 28px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#explore-planets-modal p {
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+#explore-planets-modal ul {
+  list-style: none;
+  margin: 30px auto;
+  width: 300px;
+}
+
+#explore-planets-modal li {
+  margin: 10px 0;
+}
+
+#explore-planets-modal a {
+  display: block;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#explore-planets-modal a:hover {
+  background-color: #f2f2
+
+
+/* body {
     margin: 0;
     padding: 0;
     background-size: cover;
@@ -32,3 +173,4 @@ img {
     height: auto;
     width: 100%;
 }
+ */
