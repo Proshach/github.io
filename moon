@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title><html>
+  <title> Planets and Moon</title><html>
     <head>
     <style>
     /* Define the size and position of the circle */
