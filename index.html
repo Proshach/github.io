@@ -2,46 +2,73 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Proshach 2023 github</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proshach 2023 github</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 
 <body>
-  <h1>Photo of the day Courtesy of NASA</h1>
-  <button onclick="window.location.href='https://apod.nasa.gov/apod/archivepix.html'">NASA archive since 2015</button>
+    <h1>Photo of the day Courtesy of NASA</h1>
+    <button onclick="window.location.href='https://apod.nasa.gov/apod/archivepix.html'">NASA archive since 2015</button>
 
+    <div id="orbit">
+        <div class="satellite orange"></div>
+        <div class="satellite green"></div>
+        <div class="satellite blue"></div>
+    </div>
 
-  <div id="orbit">
-    <div class="satellite orange"></div>
-    <div class="satellite green"></div>
-    <div class="satellite blue"></div>
-  </div>
+    <button id="explore-planets-btn">Explore the Planets</button>
 
-  <button id="explore-planets-btn">Explore the Planets</button>
+    <div id="explore-planets-modal">
+        <h2>Click on your favorite planet and discover your secret world!</h2>
+        <p>Please select a planet:</p>
+        <ul>
+            <li><a href="#">Mercury</a></li>
+            <li><a href="#">Venus</a></li>
+            <li><a href="#">Earth</a></li>
+            <li><a href="#">Mars</a></li>
+            <li><a href="#">Jupiter</a></li>
+            <li><a href="#">Saturn</a></li>
+            <li><a href="#">Uranus</a></li>
+            <li><a href="#">Neptune</a></li>
+        </ul>
+        <button id="close-modal-btn">Close</button>
+    </div>
 
-  <!-- Add the pop-up window/modal to your HTML code -->
-  <div id="explore-planets-modal">
-    <h2>Click on your favorite planet and discover your secret world!</h2>
-    <p>Please select a planet:</p>
-    <ul>
-      <li><a href="#">Mercury</a></li>
-      <li><a href="#">Venus</a></li>
-      <li><a href="#">Earth</a></li>
-      <li><a href="#">Mars</a></li>
-      <li><a href="#">Jupiter</a></li>
-      <li><a href="#">Saturn</a></li>
-      <li><a href="#">Uranus</a></li>
-      <li><a href="#">Neptune</a></li>
-    </ul>
-    <button id="close-modal-btn">Close</button>
-  </div>
+    <h2>Ask AI:</h2>
+    <input type="text" id="userInput" placeholder="Type a question...">
+    <button onclick="askAI()">Submit</button>
+    <p id="response"></p>
 
-  <script defer src="script.js"></script>
+    <script defer src="script.js"></script>
 
+    <script>
+        async function askAI() {
+            const API_KEY = "AIzaSyCQjlWl6QT4uPsYNZt74IH619cPNZNJ43o"; // Replace with your actual API key
+            const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateText?key=${API_KEY}`;
+
+            const userInput = document.getElementById("userInput").value;
+            const responseField = document.getElementById("response");
+
+            const data = { "prompt": { "text": userInput } };
+
+            try {
+                const response = await fetch(URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                responseField.innerText = result.candidates[0].output;
+            } catch (error) {
+                responseField.innerText = "Error: " + error;
+            }
+        }
+    </script>
 </body>
 
 </html>
