@@ -13,15 +13,25 @@
     NASA Archive Since 2015
   </button>
 
+  <!-- Orbit Section -->
   <div id="orbit">
-    <div class="satellite orange"></div>
-    <div class="satellite green"></div>
-    <div class="satellite blue"></div>
+    <div class="orbit-path" data-orbit="orange" data-message="You clicked the orange orbit!">
+      <div class="satellite orange"></div>
+    </div>
+    <div class="orbit-path" data-orbit="green" data-message="This green orbit is a mystery!">
+      <div class="satellite green"></div>
+    </div>
+    <div class="orbit-path" data-orbit="blue" data-message="Exploring the blue orbit!">
+      <div class="satellite blue"></div>
+    </div>
   </div>
 
+  <!-- Message Display -->
+  <p id="orbit-message"></p>
+
+  <!-- Explore Planets Section -->
   <button id="explore-planets-btn">Explore the Planets</button>
 
-  <!-- Explore Planets Modal -->
   <div id="explore-planets-modal">
     <h2>Click on your favorite planet and discover your secret world!</h2>
     <p>Please select a planet:</p>
