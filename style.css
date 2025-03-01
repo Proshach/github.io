@@ -5,20 +5,20 @@
   box-sizing: border-box;
 }
 
-/* Style the body element */
+/* Style the body */
 body {
   background-color: #f2f2f2;
   font-family: Arial, sans-serif;
   font-size: 16px;
 }
 
-/* Style the header element */
+/* Style the header */
 h1 {
   text-align: center;
   margin-top: 50px;
 }
 
-/* Style the button elements */
+/* Style buttons */
 button {
   display: block;
   margin: 20px auto;
@@ -37,7 +37,7 @@ button:hover {
   background-color: #0062cc;
 }
 
-/* Style the orbit container and satellite elements */
+/* Style the orbit container and satellites */
 #orbit {
   display: flex;
   justify-content: center;
@@ -68,7 +68,7 @@ button:hover {
   transform: scale(1.2);
 }
 
-/* Style the Explore Planets button and modal */
+/* Style the Explore Planets button */
 #explore-planets-btn {
   display: block;
   margin: 50px auto 20px;
@@ -87,6 +87,7 @@ button:hover {
   background-color: #0062cc;
 }
 
+/* Style the Explore Planets modal */
 #explore-planets-modal {
   display: none;
   position: fixed;
@@ -96,22 +97,30 @@ button:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 9999;
+  padding-top: 50px;
+  text-align: center;
 }
 
+/* Modal title */
 #explore-planets-modal h2 {
   color: #fff;
   font-size: 28px;
-  text-align: center;
-  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
-#explore-planets-modal p {
-  color: #fff;
-  font-size: 18px;
-  text-align: center;
-  margin-top: 30px;
+/* Modal message display */
+#planet-message {
+  color: #ffcc00; /* Bright yellow text */
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px auto;
+  padding: 10px;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
 }
 
+/* Modal planet list */
 #explore-planets-modal ul {
   list-style: none;
   margin: 30px auto;
@@ -136,41 +145,15 @@ button:hover {
 }
 
 #explore-planets-modal a:hover {
-  background-color: #f2f2
-
-
-/* body {
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    background-position: center;
-    background-color: grey;
+  background-color: #f2f2f2;
 }
 
-
-
-.satellite {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    position: absolute;
+/* Modal close button */
+#close-modal-btn {
+  background-color: red;
+  margin-top: 20px;
 }
 
-.orange {
-    background-color: rgb(199, 169, 113);
+#close-modal-btn:hover {
+  background-color: darkred;
 }
-
-.green {
-    background-color: rgb(119, 161, 119);
-}
-
-.blue {
-    background-color: rgb(117, 117, 182);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    width: 100%;
-}
- */
