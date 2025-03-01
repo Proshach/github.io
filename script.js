@@ -6,9 +6,12 @@ fetch(apiUrl)
     .then(data => {
         const image = document.createElement("img");
         image.src = data.hdurl;
+        image.alt = "NASA Astronomy Picture of the Day";
+        image.style.width = "100%"; 
+        image.style.borderRadius = "10px"; 
         document.body.appendChild(image);
     })
-    .catch(error => console.error(error));
+    .catch(error => console.error("Error fetching NASA APOD:", error));
 
 // Satellite Animation
 var satellites = document.querySelectorAll(".satellite");
@@ -27,6 +30,20 @@ function moveSatellite(satellite, angle, speed) {
 }
 
 satellites.forEach((satellite, index) => moveSatellite(satellite, angles[index], speeds[index]));
+
+// Clickable Orbits - Display Messages
+document.addEventListener("DOMContentLoaded", () => {
+    const orbits = document.querySelectorAll(".orbit-path");
+    const orbitMessage = document.getElementById("orbit-message");
+
+    orbits.forEach(orbit => {
+        orbit.addEventListener("click", () => {
+            const message = orbit.getAttribute("data-message");
+            orbitMessage.textContent = message;
+            orbitMessage.style.color = "white";
+        });
+    });
+});
 
 // Planets Modal Functionality
 const explorePlanetsBtn = document.querySelector("#explore-planets-btn");
@@ -65,4 +82,12 @@ planetLinks.forEach(link => {
         const planetName = link.getAttribute("data-planet");
         planetMessage.textContent = planetMessages[planetName] || "Explore this mysterious world!";
     });
+});
+
+// Close modal if clicked outside
+window.addEventListener("click", event => {
+    if (event.target === explorePlanetsModal) {
+        explorePlanetsModal.style.display = "none";
+        planetMessage.textContent = "";
+    }
 });
