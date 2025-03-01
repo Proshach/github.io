@@ -1,128 +1,114 @@
-/* Apply default styling to all elements */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* style.css */
 
-/* Style the body */
 body {
-  background-color: #0d0d0d; /* Dark space-themed background */
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  color: white;
+  font-family: sans-serif;
   text-align: center;
+  margin: 20px;
 }
 
-/* Style the header */
 h1 {
-  margin-top: 30px;
-  font-size: 26px;
+  margin-bottom: 20px;
 }
 
-/* Style buttons */
 button {
-  display: block;
-  margin: 20px auto;
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
   background-color: #007bff;
-  color: #fff;
-  font-size: 16px;
+  color: white;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-/* NASA APOD Image */
-img {
-  display: block;
-  max-width: 90%;
-  margin: 20px auto;
-  border-radius: 10px;
-  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.3);
-}
-
-/* Orbit container */
 #orbit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   width: 300px;
   height: 300px;
-  margin: 40px auto;
-  border-radius: 50%;
-  border: 2px dashed rgba(255, 255, 255, 0.5);
+  margin: 20px auto;
 }
 
-/* Orbit paths */
-.orbit-path {
+. .orbit-path {
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Hover effect on orbits */
-.orbit-path:hover {
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.1);
+.orbit-path[data-orbit="orange"] {
+  transform: scale(0.8);
 }
 
-/* Click effect for orbit */
-.orbit-path:active {
-  background-color: rgba(255, 165, 0, 0.3);
+.orbit-path[data-orbit="green"] {
+  transform: scale(0.6);
 }
 
-/* Satellite planets */
+.orbit-path[data-orbit="blue"] {
+  transform: scale(0.4);
+}
+
 .satellite {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  position: absolute;
 }
 
-/* Satellite colors */
 .satellite.orange {
-  background-color: #ffa500;
+  background-color: orange;
 }
 
 .satellite.green {
-  background-color: #00b300;
+  background-color: green;
 }
 
 .satellite.blue {
-  background-color: #0077be;
+  background-color: blue;
 }
 
-/* Explore Planets Button */
+#orbit-message {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
 #explore-planets-btn {
-  margin: 50px auto 20px;
   padding: 10px 20px;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
-#explore-planets-btn:hover {
-  background-color: #0062cc;
-}
-
-/* Explore Planets Modal */
 #explore-planets-modal {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0,
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+}
+
+#explore-planets-modal ul {
+  list-style: none;
+  padding: 0;
+}
+
+#explore-planets-modal li {
+  margin: 5px 0;
+}
+
+#close-modal-btn {
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
