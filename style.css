@@ -1,114 +1,122 @@
-/* style.css */
-
+/* ===== Global Styles ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: sans-serif;
-  text-align: center;
-  margin: 20px;
+  font-family: 'Inter', sans-serif;
+  background: #f9f9fb;
+  color: #333;
+  line-height: 1.6;
 }
 
-h1 {
-  margin-bottom: 20px;
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 10%;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
+.logo { font-size: 1.4rem; font-weight: 700; color: #111; }
+.logo span { color: #2980b9; }
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+nav a:hover { color: #2980b9; }
 
-button {
-  padding: 10px 20px;
-  background-color: #007bff;
+/* ===== Hero Section ===== */
+.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+              url('images/hero.jpg') center/cover no-repeat;
   color: white;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-#orbit {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 20px auto;
-}
-
-. .orbit-path {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2px dashed #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: 0 20px;
 }
-
-.orbit-path[data-orbit="orange"] {
-  transform: scale(0.8);
+.hero-content h2 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
 }
-
-.orbit-path[data-orbit="green"] {
-  transform: scale(0.6);
+.hero-content p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 20px;
 }
-
-.orbit-path[data-orbit="blue"] {
-  transform: scale(0.4);
-}
-
-.satellite {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-}
-
-.satellite.orange {
-  background-color: orange;
-}
-
-.satellite.green {
-  background-color: green;
-}
-
-.satellite.blue {
-  background-color: blue;
-}
-
-#orbit-message {
-  margin-top: 20px;
-  font-weight: bold;
-}
-
-#explore-planets-btn {
-  padding: 10px 20px;
-  background-color: #28a745;
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #2980b9;
   color: white;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
+.btn:hover { background: #1e6091; }
 
-#explore-planets-modal {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+/* ===== Sections ===== */
+.section {
+  padding: 80px 10%;
   text-align: center;
 }
-
-#explore-planets-modal ul {
-  list-style: none;
-  padding: 0;
+.section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #2980b9;
+}
+.section p {
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #555;
 }
 
-#explore-planets-modal li {
-  margin: 5px 0;
+/* ===== Photography Grid ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); }
+.card img { width: 100%; height: 220px; object-fit: cover; }
+.card h4 { margin: 15px 0 10px; color: #333; }
+.card p { padding: 0 20px 20px; color: #666; }
+
+/* ===== Footer ===== */
+.site-footer {
+  background: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #777;
+}
+.site-footer a.footer-link {
+  color: #2980b9;
+  text-decoration: none;
+}
+.site-footer a.footer-link:hover {
+  text-decoration: underline;
 }
 
-#close-modal-btn {
-  padding: 8px 16px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero-content h2 { font-size: 1.8rem; }
+  .navbar { flex-direction: column; }
 }
