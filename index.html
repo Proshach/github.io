@@ -3,61 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Proshach 2023 GitHub</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Proshach Innovations | Photography & Software</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <h1>Photo of the Day Courtesy of NASA</h1>
-  <button onclick="window.location.href='https://apod.nasa.gov/apod/archivepix.html'">
-    NASA Archive Since 2015
-  </button>
+  <!-- Header / Navigation -->
+  <header class="navbar">
+    <h1 class="logo">Proshach<span>Innovations</span></h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <!-- Orbit Section -->
-  <div id="orbit">
-    <div class="orbit-path" data-orbit="orange" data-message="You clicked the orange orbit!">
-      <div class="satellite orange"></div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Where Software Meets Art</h2>
+      <p>Creating experiences that make life simpler — through code, vision, and light.</p>
+      <a href="#projects" class="btn">View Gallery</a>
     </div>
-    <div class="orbit-path" data-orbit="green" data-message="This green orbit is a mystery!">
-      <div class="satellite green"></div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section about">
+    <h3>Our Vision</h3>
+    <p>Proshach Innovations merges photography and software to tell human stories through technology.
+       We create digital experiences and visuals that empower creativity and simplify everyday life.</p>
+  </section>
+
+  <!-- Photography Showcase -->
+  <section id="projects" class="section projects">
+    <h3>Photography & Innovation</h3>
+    <div class="grid">
+      <div class="card">
+        <img src="images/photo1.jpg" alt="Innovation through photography" />
+        <h4>Urban Reflections</h4>
+        <p>Exploring light and structure through a modern lens.</p>
+      </div>
+      <div class="card">
+        <img src="images/photo2.jpg" alt="Human connection" />
+        <h4>Human Connection</h4>
+        <p>Capturing moments that bridge art, emotion, and code.</p>
+      </div>
+      <div class="card">
+        <img src="images/photo3.jpg" alt="Nature and technology" />
+        <h4>Nature Meets Technology</h4>
+        <p>Blending organic beauty with digital innovation.</p>
+      </div>
     </div>
-    <div class="orbit-path" data-orbit="blue" data-message="Exploring the blue orbit!">
-      <div class="satellite blue"></div>
-    </div>
-  </div>
+  </section>
 
-  <!-- Message Display -->
-  <p id="orbit-message"></p>
+  <!-- Contact -->
+  <section id="contact" class="section contact">
+    <h3>Let's Collaborate</h3>
+    <p>Whether through visual storytelling or intelligent systems — let's build a simpler future together.</p>
+    <a href="mailto:hornetxp@gmail.com" class="btn">Contact Us</a>
+  </section>
 
-  <!-- Explore Planets Section -->
-  <button id="explore-planets-btn">Explore the Planets</button>
-
-  <div id="explore-planets-modal">
-    <h2>Click on your favorite planet and discover your secret world!</h2>
-    <p>Please select a planet:</p>
-    <ul>
-      <li><a href="#" data-planet="mercury">Mercury</a></li>
-      <li><a href="#" data-planet="venus">Venus</a></li>
-      <li><a href="#" data-planet="earth">Earth</a></li>
-      <li><a href="#" data-planet="mars">Mars</a></li>
-      <li><a href="#" data-planet="jupiter">Jupiter</a></li>
-      <li><a href="#" data-planet="saturn">Saturn</a></li>
-      <li><a href="#" data-planet="uranus">Uranus</a></li>
-      <li><a href="#" data-planet="neptune">Neptune</a></li>
-    </ul>
-    <p id="planet-message"></p>
-    <button id="close-modal-btn">Close</button>
-  </div>
-
-  <script defer src="script.js"></script>
-  <!-- <script defer src="test-api.js"></script> -->
-    <footer style="margin-top:40px; text-align:center; font-size:0.9em; color:#777;">
-    <p>
-      © 2026 Proshach Software Solutions 
-      <a href="commercial-disclosure.html" style="color:#2980b9; text-decoration:none;">
-        特定商取引法に基づく表記 (Commercial Disclosure)
-      </a>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© 2026 Proshach Innovations |
+      <a href="index.html">Home</a> |
+      <a href="commercial-disclosure.html" class="footer-link">特定商取引法に基づく表記</a>
     </p>
   </footer>
+
 </body>
 </html>
