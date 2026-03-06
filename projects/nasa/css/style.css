@@ -3,84 +3,58 @@ background:black;
 color:white;
 font-family:Arial;
 text-align:center;
-overflow:hidden;
+margin:0;
+overflow-x:hidden;
 }
 
-h1{
-margin-top:20px;
+.header{
+padding:40px;
 }
 
-#solar-system{
+.orbit-section{
+display:flex;
+justify-content:center;
+align-items:center;
+height:400px;
+}
+
+#orbit{
+width:300px;
+height:300px;
+border:1px dashed white;
+border-radius:50%;
 position:relative;
-width:600px;
-height:600px;
-margin:50px auto;
 }
-
-.sun{
-width:80px;
-height:80px;
-background:radial-gradient(circle,yellow,orange);
-border-radius:50%;
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-box-shadow:0 0 40px yellow;
-}
-
-/* ORBITS */
-
-.orbit{
-position:absolute;
-border:1px solid rgba(255,255,255,0.2);
-border-radius:50%;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-}
-
-.mercury-orbit{width:150px;height:150px;}
-.venus-orbit{width:220px;height:220px;}
-.earth-orbit{width:300px;height:300px;}
-.mars-orbit{width:380px;height:380px;}
 
 .planet{
-width:20px;
+width:60px;
+height:60px;
+background:linear-gradient(blue,cyan);
+border-radius:50%;
 position:absolute;
-top:-10px;
+top:50%;
 left:50%;
-transform:translateX(-50%);
+transform:translate(-50%,-50%);
+box-shadow:0 0 20px cyan;
 }
 
-/* orbit animations */
-
-.mercury-orbit{
-animation:spin 4s linear infinite;
+.satellite{
+width:15px;
+height:15px;
+background:white;
+border-radius:50%;
+position:absolute;
+top:50%;
+left:50%;
 }
 
-.venus-orbit{
-animation:spin 7s linear infinite;
+.apod{
+padding:40px;
 }
-
-.earth-orbit{
-animation:spin 10s linear infinite;
-}
-
-.mars-orbit{
-animation:spin 15s linear infinite;
-}
-
-@keyframes spin{
-from{transform:translate(-50%,-50%) rotate(0deg);}
-to{transform:translate(-50%,-50%) rotate(360deg);}
-}
-
-/* NASA APOD image */
 
 #apod-container img{
-margin-top:30px;
-width:400px;
+max-width:80%;
 border-radius:10px;
+margin-top:20px;
 box-shadow:0 0 20px white;
 }
