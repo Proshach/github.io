@@ -1,9 +1,11 @@
 body{
-font-family:Inter,sans-serif;
+font-family:'Inter', sans-serif;
 margin:0;
 background:#fafafa;
 color:#333;
 }
+
+/* NAVBAR */
 
 .navbar{
 display:flex;
@@ -30,19 +32,23 @@ color:#333;
 font-weight:500;
 }
 
+/* HERO SECTION */
+
 .hero{
 height:80vh;
-background:
-linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-url("../images/hero.jpg");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
 display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
 padding:20px;
+
+background-image:
+linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+url("../images/hero.jpg");
+
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 }
 
 .hero-overlay{
@@ -62,6 +68,8 @@ margin-bottom:10px;
 font-size:18px;
 line-height:1.6;
 }
+
+/* SECTIONS */
 
 .section{
 padding:70px 20px;
@@ -83,6 +91,8 @@ width:280px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* PHOTO CARDS */
+
 .photo-container{
 position:relative;
 }
@@ -102,6 +112,8 @@ font-size:12px;
 padding:3px 6px;
 border-radius:4px;
 }
+
+/* BUTTONS */
 
 .btn{
 display:inline-block;
@@ -131,6 +143,8 @@ background:#555;
 .buy{
 background:#00aa55;
 }
+
+/* FOOTER */
 
 footer{
 padding:25px;
