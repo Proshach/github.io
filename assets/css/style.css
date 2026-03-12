@@ -301,7 +301,7 @@ nav a:hover::after     { right: 0; }
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
   animation: fadeUp 0.8s var(--ease) 1.4s forwards;
 }
@@ -512,7 +512,19 @@ nav a:hover::after     { right: 0; }
   aspect-ratio: 3 / 4;
   background: var(--mist);
   cursor: pointer;
+  /* Entrance animation via JS-added class */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), background 0.4s;
 }
+
+.photo-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delay via CSS custom property set inline */
+.photo-card--reveal { transition-delay: var(--delay, 0s); }
 
 .photo-card img {
   position: absolute;
@@ -522,6 +534,7 @@ nav a:hover::after     { right: 0; }
   object-fit: cover;
   object-position: center;
   display: block;
+  z-index: 0;
   transition: transform 0.8s var(--ease), filter 0.6s;
   filter: grayscale(20%);
 }
@@ -549,6 +562,7 @@ nav a:hover::after     { right: 0; }
 .photo-card-overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: linear-gradient(
     to top,
     rgba(10, 10, 10, 0.9) 0%,
@@ -569,6 +583,7 @@ nav a:hover::after     { right: 0; }
   position: absolute;
   top: 1rem;
   right: 1rem;
+  z-index: 3;
   font-size: 0.58rem;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.5);
