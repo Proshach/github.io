@@ -1,189 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Proshach Innovations — Photography & Software Engineering. Creating digital tools and visual experiences that simplify life.">
+  <meta name="author" content="Proshach Innovations">
 
-<title>Proshach Innovations | Photography & Software</title>
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Proshach Innovations | Photography & Software">
+  <meta property="og:description" content="Where Software Meets Art — code, vision, and light.">
+  <meta property="og:image" content="assets/images/og-preview.jpg">
 
-<link rel="stylesheet" href="assets/css/style.css">
+  <title>Proshach Innovations | Photography & Software</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/images/favicon.png">
 
-<link rel="icon" href="assets/images/favicon.png">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
-<header class="navbar">
-
-<div class="logo">Proshach<span>Innovations</span></div>
-
-<nav>
-<a href="#about">About</a>
-<a href="#gallery">Gallery</a>
-<a href="#software">Projects</a>
-<a href="#contact">Contact</a>
-</nav>
-
-</header>
-
-<section class="hero">
-
-<div class="hero-overlay">
-
-<h1>Where Software Meets Art</h1>
-
-<p>Creating experiences that make life simpler — through code, vision, and light.</p>
-
-<a href="#gallery" class="btn">Explore Photography</a>
-
-</div>
-
-</section>
-
-<section id="about" class="section">
-
-<h2>Our Vision</h2>
-
-<p>
-Proshach Innovations merges photography and software engineering to create digital tools and visual experiences that simplify life.  
-We believe technology and creativity together can inspire a smarter future.
-</p>
-
-</section>
-
-<section id="gallery" class="section">
-
-<h2>Photography</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<div class="photo-container">
-
-<img src="assets/images/photo1.jpg" loading="lazy">
-
-<div class="watermark">© Proshach</div>
-
-</div>
-
-<h3>Urban Reflections</h3>
-
-<p>Tokyo lights reflected in city architecture.</p>
-
-<a href="assets/images/photo1.jpg" download class="btn-small">Preview</a>
-
-<a href="mailto:altitude2026@gmail.com?subject=RAW Photo Request - Urban Reflections" class="btn-small secondary">Request RAW</a>
-
-<a href="https://buy.stripe.com/test_link_here" class="btn-small buy">Buy Full</a>
-
-</div>
-
-
-<div class="card">
-
-<div class="photo-container">
-
-<img src="assets/images/photo2.jpg" loading="lazy">
-
-<div class="watermark">© Proshach</div>
-
-</div>
-
-<h3>Human Connection</h3>
-
-<p>Moments that tell a human story.</p>
-
-<a href="assets/images/photo2.jpg" download class="btn-small">Preview</a>
-
-<a href="mailto:altitude2026@gmail.com?subject=RAW Photo Request - Human Connection" class="btn-small secondary">Request RAW</a>
-
-<a href="https://buy.stripe.com/test_link_here" class="btn-small buy">Buy Full</a>
-
-</div>
-
-
-<div class="card">
-
-<div class="photo-container">
-
-<img src="assets/images/photo3.jpg" loading="lazy">
-
-<div class="watermark">© Proshach</div>
-
-</div>
-
-<h3>Nature Meets Technology</h3>
-
-<p>Organic beauty blending with innovation.</p>
-
-<a href="assets/images/photo3.jpg" download class="btn-small">Preview</a>
-
-<a href="mailto:altitude2026@gmail.com?subject=RAW Photo Request - Nature Meets Technology" class="btn-small secondary">Request RAW</a>
-
-<a href="https://buy.stripe.com/test_link_here" class="btn-small buy">Buy Full</a>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="software" class="section">
-
-<h2>Software Projects</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>NASA Space Viewer</h3>
-
-<p>A simple web app displaying daily space photography using public APIs.</p>
-
-<a href="nasa-orbit/index.html" class="btn-small">NASA Orbit Explorer</a>
-
-</div>
-
-<div class="card">
-
-<h3>AI Expense Tracker</h3>
-
-<p>Experimental AI-powered tool for tracking spending and financial insights.</p>
-
-<a href="#" class="btn-small">Coming Soon</a>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="contact" class="section">
-
-<h2>Let's Collaborate</h2>
-
-<p>Photography, software development, and AI experiments.</p>
-
-<a href="mailto:hornetxp@gmail.com" class="btn">Contact</a>
-
-</section>
-
-<footer>
-
-<p>
-© 2026 Proshach Innovations |
-<a href="index.html">Home</a> |
-<a href="commercial-disclosure.html">特定商取引法に基づく表記</a>
-</p>
-
-</footer>
-
-<script src="assets/js/main.js"></script>
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── NAVBAR ──────────────────────────────────────────── -->
+  <header class="navbar" id="navbar">
+    <div class="logo">Proshach<span>Innovations</span></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#software">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ── HERO ────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-label">est. 2026 · tokyo</div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Photography &amp; Software Engineering</p>
+      <h1>Where <em>Software</em><br>Meets Art</h1>
+      <p>Creating experiences that make life simpler — through code, vision, and light.</p>
+      <div class="hero-actions">
+        <a href="#gallery" class="btn">Explore Photography</a>
+        <a href="#software" class="btn-ghost">View Projects</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ───────────────────────────────────────────── -->
+  <section id="about" class="section">
+    <div class="about-inner">
+
+      <div class="about-text reveal">
+        <div class="section-header">
+          <span class="section-tag">01 — About</span>
+          <h2>Vision &amp;<br><em>Philosophy</em></h2>
+        </div>
+        <p>
+          Proshach Innovations merges photography and software engineering to create
+          digital tools and visual experiences that simplify life.
+        </p>
+        <p>
+          We believe technology and creativity together can inspire a smarter future —
+          one where code is crafted with the precision of art, and photography tells
+          stories that software alone cannot.
+        </p>
+      </div>
+
+      <div class="about-stats reveal reveal-delay-2">
+        <div class="stat-item">
+          <div class="stat-number">2<span>+</span></div>
+          <div class="stat-label">Software Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number"><span>∞</span></div>
+          <div class="stat-label">Frames Captured</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1<span>x</span></div>
+          <div class="stat-label">Unique Vision</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">26<span>'</span></div>
+          <div class="stat-label">Year Founded</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── GALLERY ─────────────────────────────────────────── -->
+  <section id="gallery" class="section-full">
+    <div class="section section--header">
+      <span class="section-tag reveal">02 — Photography</span>
+      <h2 class="section-title reveal reveal-delay-1">Visual <em>Stories</em></h2>
+    </div>
+
+    <div class="gallery-grid">
+
+      <!-- Card 1 — swap photo-placeholder for <img> when ready -->
+      <div class="photo-card reveal">
+        <div class="photo-placeholder">photo · 01</div>
+        <!-- <img src="assets/images/photo1.jpg" loading="lazy" alt="Urban Reflections"> -->
+        <div class="watermark">© Proshach</div>
+        <div class="photo-card-overlay">
+          <h3>Urban Reflections</h3>
+          <p>Tokyo lights reflected in city architecture.</p>
+          <div class="photo-card-actions">
+            <a href="assets/images/photo1.jpg" download class="btn-small">Preview</a>
+            <a href="mailto:altitude2026@gmail.com?subject=RAW Photo Request - Urban Reflections" class="btn-small secondary">Request RAW</a>
+            <a href="https://buy.stripe.com/test_link_here" class="btn-small buy">Buy Full</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="photo-card reveal reveal-delay-1">
+        <div class="photo-placeholder">photo · 02</div>
+        <!-- <img src="assets/images/photo2.jpg" loading="lazy" alt="Human Connection"> -->
+        <div class="watermark">© Proshach</div>
+        <div class="photo-card-overlay">
+          <h3>Human Connection</h3>
+          <p>Moments that tell a human story.</p>
+          <div class="photo-card-actions">
+            <a href="assets/images/photo2.jpg" download class="btn-small">Preview</a>
+            <a href="mailto:altitude2026@gmail.com?subject=RAW Photo Request - Human Connection" class="btn-small secondary">Request RAW</a>
+            <a href="https://buy.stripe.com/test_link_here" class="btn-small buy">Buy Full</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="photo-card reveal reveal-delay-2">
+        <div class="photo-placeholder">photo · 03</div>
+        <!-- <img src="assets/images/photo3.jpg" loading="lazy" alt="Nature Meets Technology"> -->
+        <div class="watermark">© Proshach</div>
+        <div class="photo-card-overlay">
+          <h3>Nature Meets Technology</h3>
+          <p>Organic beauty blending with innovation.</p>
+          <div class="photo-card-actions">
+            <a href="assets/images/photo3.jpg" download class="btn-small">Preview</a>
+            <a href="mailto:altitude2026@gmail.com?subject=RAW Photo Request - Nature Meets Technology" class="btn-small secondary">Request RAW</a>
+            <a href="https://buy.stripe.com/test_link_here" class="btn-small buy">Buy Full</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SOFTWARE PROJECTS ───────────────────────────────── -->
+  <section id="software" class="section-full">
+    <div class="section section--header">
+      <span class="section-tag reveal">03 — Software</span>
+      <h2 class="section-title reveal reveal-delay-1">Built <em>Things</em></h2>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-number">01</div>
+        <span class="project-tag">Web App</span>
+        <span class="project-tag">NASA API</span>
+        <h3>NASA Space Viewer</h3>
+        <p>A web app displaying daily space photography sourced from NASA's public APIs. Explore the cosmos one frame at a time.</p>
+        <a href="nasa-orbit/index.html" class="btn-small">NASA Orbit Explorer →</a>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-number">02</div>
+        <span class="coming-soon-badge">Coming Soon</span>
+        <h3>AI Expense Tracker</h3>
+        <p>Experimental AI-powered tool for tracking spending and generating financial insights. Smart money, simply visualized.</p>
+        <a href="#" class="btn-small secondary">In Development</a>
+      </div>
+
+      <!-- Future slot — duplicate this card for new projects -->
+      <div class="project-card project-card--ghost reveal reveal-delay-2">
+        <div class="project-number project-number--faint">03</div>
+        <span class="coming-soon-badge">Planned</span>
+        <h3 class="ghost-title">Next Project</h3>
+        <p class="ghost-text">Something is being built. Stay tuned.</p>
+        <a href="#contact" class="btn-small secondary">Collaborate →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── COMMERCE BAND ───────────────────────────────────── -->
+  <div class="monetize-band reveal">
+    <span class="section-tag">04 — Commerce</span>
+    <h2>Photography &amp; SaaS,<br><em>Ready to Sell</em></h2>
+    <p>Prints, RAW files, and software subscriptions — all powered by Stripe. Coming soon.</p>
+    <a href="mailto:altitude2026@gmail.com?subject=Licensing Inquiry" class="btn">Get Early Access</a>
+    <br>
+    <span class="stripe-badge">
+      <span class="stripe-dot"></span>
+      Payments via Stripe · Secure &amp; Global
+    </span>
+  </div>
+
+  <!-- ── CONTACT ─────────────────────────────────────────── -->
+  <section id="contact" class="section">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-tag">05 — Contact</span>
+        <h2>Let's <em>Collaborate</em></h2>
+      </div>
+      <p class="reveal reveal-delay-1">
+        Photography commissions, software development, AI experiments — open to interesting work.
+      </p>
+      <a href="mailto:hornetxp@gmail.com" class="contact-email reveal reveal-delay-2">
+        hornetxp@gmail.com
+      </a>
+      <div class="reveal reveal-delay-3">
+        <a href="mailto:hornetxp@gmail.com" class="btn">Send a Message</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">Proshach<em>Innovations</em></div>
+    <p>© 2026 Proshach Innovations</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="commercial-disclosure.html">特定商取引法に基づく表記</a>
+    </div>
+  </footer>
+
+  <!-- Main Script -->
+  <script src="assets/js/main.js"></script>
 
 </body>
 </html>
