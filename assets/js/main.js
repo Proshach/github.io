@@ -59,19 +59,33 @@
 
 /* ── SCROLL REVEAL ──────────────────────────────────────────── */
 (function initReveal() {
+  // Standard text/section reveals
   const elements = document.querySelectorAll('.reveal');
-  if (!elements.length) return;
+  if (elements.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    elements.forEach((el) => observer.observe(el));
+  }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // fire once
-      }
-    });
-  }, { threshold: 0.12 });
-
-  elements.forEach((el) => observer.observe(el));
+  // Photo cards — separate observer so opacity:0 doesn't hide images
+  const photoCards = document.querySelectorAll('.photo-card--reveal');
+  if (photoCards.length) {
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    photoCards.forEach((card) => cardObserver.observe(card));
+  }
 })();
 
 
