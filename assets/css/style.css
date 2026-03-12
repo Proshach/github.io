@@ -180,10 +180,33 @@ nav a:hover::after     { right: 0; }
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+/* Hero photo — sits behind the gradient overlay */
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.45;
+  filter: grayscale(30%);
+  transition: opacity 1s ease;
+}
+
+/* Dark gradient overlay — keeps text readable */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
-    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200, 169, 110, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(160, 120, 64, 0.06) 0%, transparent 60%),
-    linear-gradient(160deg, #111 0%, #0a0a0a 50%, #0d0c0b 100%);
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200, 169, 110, 0.07) 0%, transparent 60%),
+    linear-gradient(to right, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.5) 60%, rgba(10,10,10,0.3) 100%),
+    linear-gradient(to top,   rgba(10,10,10,0.85) 0%, transparent 50%);
 }
 
 /* Vertical accent line */
@@ -194,6 +217,7 @@ nav a:hover::after     { right: 0; }
   right: 18%;
   width: 1px;
   height: 100%;
+  z-index: 2;
   background: linear-gradient(
     to bottom,
     transparent 0%,
@@ -491,9 +515,12 @@ nav a:hover::after     { right: 0; }
 }
 
 .photo-card img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
   transition: transform 0.8s var(--ease), filter 0.6s;
   filter: grayscale(20%);
@@ -502,6 +529,21 @@ nav a:hover::after     { right: 0; }
 .photo-card:hover img {
   transform: scale(1.06);
   filter: grayscale(0%);
+}
+
+/* Fallback shown only if no image present */
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #161616 0%, #1e1c18 100%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: rgba(200, 169, 110, 0.2);
+  text-transform: uppercase;
 }
 
 .photo-card-overlay {
@@ -552,21 +594,6 @@ nav a:hover::after     { right: 0; }
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-}
-
-/* Placeholder shown before real images are added */
-.photo-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #161616 0%, #1e1c18 100%);
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: rgba(200, 169, 110, 0.2);
-  text-transform: uppercase;
 }
 
 /* ── PROJECTS ───────────────────────────────────────────────── */
