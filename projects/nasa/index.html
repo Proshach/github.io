@@ -1,48 +1,971 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA Orbit Explorer — Proshach Innovations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ── TOKENS ──────────────────────────────────────────────── */
+    :root {
+      --void:    #000508;
+      --deep:    #020d18;
+      --panel:   rgba(0, 20, 40, 0.75);
+      --border:  rgba(0, 180, 255, 0.18);
+      --cyan:    #00b4ff;
+      --cyan2:   #00d4ff;
+      --gold:    #c8a96e;
+      --green:   #00ff9d;
+      --red:     #ff4060;
+      --white:   #e8f4ff;
+      --dim:     rgba(232, 244, 255, 0.45);
+      --mono:    'Share Tech Mono', 'Courier New', monospace;
+      --display: 'Orbitron', sans-serif;
+      --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-<title>NASA Orbit Explorer</title>
+    /* ── RESET ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--void);
+      color: var(--white);
+      font-family: var(--mono);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
 
-<link rel="stylesheet" href="css/style.css">
+    /* ── STARFIELD CANVAS ────────────────────────────────────── */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
+    /* ── SCANLINE OVERLAY ────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.06) 2px,
+        rgba(0, 0, 0, 0.06) 4px
+      );
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    /* ── LAYOUT WRAPPER ──────────────────────────────────────── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── HEADER ──────────────────────────────────────────────── */
+    .site-header {
+      position: relative;
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-link {
+      position: absolute;
+      left: 2rem;
+      top: 3rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .back-link:hover { opacity: 1; }
+    .back-link::before { content: '←'; font-size: 0.9rem; }
+
+    .mission-id {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0.6;
+      margin-bottom: 1rem;
+    }
+
+    .site-title {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-shadow:
+        0 0 40px rgba(0, 180, 255, 0.5),
+        0 0 80px rgba(0, 180, 255, 0.2);
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+
+    .site-title span { color: var(--cyan); }
+
+    .site-subtitle {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* Live clock */
+    .mission-clock {
+      position: absolute;
+      right: 2rem;
+      top: 3rem;
+      text-align: right;
+    }
+    .clock-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .clock-time {
+      font-family: var(--display);
+      font-size: 0.9rem;
+      color: var(--green);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── STATUS BAR ──────────────────────────────────────────── */
+    .status-bar {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 10, 20, 0.5);
+      flex-wrap: wrap;
+    }
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .status-dot.amber { background: var(--gold); box-shadow: 0 0 6px var(--gold); }
+
+    /* ── SOLAR SYSTEM SECTION ────────────────────────────────── */
+    .solar-section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0.6;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 3rem;
+    }
+
+    /* Solar system canvas wrapper */
+    .solar-canvas-wrap {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+    }
+
+    #solarCanvas {
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 0 30px rgba(0, 180, 255, 0.15));
+    }
+
+    /* Orbit data panel */
+    .orbit-data {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: 2.5rem;
+      border: 1px solid var(--border);
+      background: var(--border);
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .orbit-data-item {
+      background: var(--panel);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .orbit-data-value {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cyan);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .orbit-data-label {
+      font-size: 0.52rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── APOD SECTION ────────────────────────────────────────── */
+    .apod-section {
+      padding: 2rem 2rem 5rem;
+    }
+
+    .apod-panel {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Top panel bar */
+    .apod-panel-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 20, 40, 0.6);
+    }
+    .apod-panel-title {
+      font-family: var(--display);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .apod-panel-status {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .apod-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      min-height: 420px;
+    }
+
+    /* Image side */
+    .apod-image-wrap {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      min-height: 420px;
+    }
+    .apod-image-wrap img,
+    .apod-image-wrap iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s var(--ease), filter 0.6s;
+      filter: brightness(0.9) saturate(1.1);
+    }
+    .apod-image-wrap:hover img { transform: scale(1.04); filter: brightness(1) saturate(1.2); }
+
+    /* Corner reticle */
+    .apod-image-wrap::before,
+    .apod-image-wrap::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .apod-image-wrap::before {
+      top: 12px; left: 12px;
+      border-top: 1px solid var(--cyan);
+      border-left: 1px solid var(--cyan);
+    }
+    .apod-image-wrap::after {
+      bottom: 12px; right: 12px;
+      border-bottom: 1px solid var(--cyan);
+      border-right: 1px solid var(--cyan);
+    }
+
+    /* Scan line on image */
+    .apod-scan {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(0,180,255,0.6), transparent);
+      animation: scanDown 4s linear infinite;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Info side */
+    .apod-info {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 1px solid var(--border);
+    }
+
+    .apod-date-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid rgba(0,180,255,0.3);
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.4rem;
+      width: fit-content;
+    }
+
+    .apod-title {
+      font-family: var(--display);
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 0 20px rgba(0,180,255,0.3);
+    }
+
+    .apod-explanation {
+      font-size: 0.75rem;
+      line-height: 1.85;
+      color: var(--dim);
+      flex: 1;
+      overflow-y: auto;
+      max-height: 200px;
+      padding-right: 0.5rem;
+      margin-bottom: 1.8rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .apod-explanation::-webkit-scrollbar { width: 3px; }
+    .apod-explanation::-webkit-scrollbar-track { background: transparent; }
+    .apod-explanation::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .apod-copyright {
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(232,244,255,0.25);
+    }
+
+    /* Loading / error state */
+    .apod-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      gap: 1.5rem;
+      color: var(--dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .loader-ring {
+      width: 48px; height: 48px;
+      border: 1px solid var(--border);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    /* Date nav */
+    .apod-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .apod-nav-btn {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: transparent;
+      border: 1px solid rgba(0,180,255,0.25);
+      padding: 0.45rem 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .apod-nav-btn:hover { background: rgba(0,180,255,0.1); border-color: var(--cyan); }
+    .apod-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    #apod-date-input {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      background: rgba(0,20,40,0.8);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 0.45rem 0.7rem;
+      outline: none;
+      letter-spacing: 0.05em;
+      transition: border-color 0.3s;
+    }
+    #apod-date-input:focus { border-color: var(--cyan); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(0,5,10,0.6);
+    }
+    .site-footer p {
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(232,244,255,0.25);
+    }
+    .site-footer a {
+      color: var(--cyan);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .site-footer a:hover { opacity: 1; }
+
+    /* ── ANIMATIONS ──────────────────────────────────────────── */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes scanDown {
+      0%   { top: 0%; }
+      100% { top: 100%; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 0.6s var(--ease) forwards; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 760px) {
+      .apod-body { grid-template-columns: 1fr; }
+      .apod-info { border-left: none; border-top: 1px solid var(--border); }
+      .apod-image-wrap { min-height: 280px; }
+      .orbit-data { grid-template-columns: repeat(2, 1fr); }
+      .mission-clock { display: none; }
+      .back-link { position: static; margin-bottom: 1rem; display: inline-flex; }
+      .site-header { padding-top: 1.5rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header class="header">
+  <canvas id="starfield"></canvas>
 
-<h1>🌌 NASA Orbit Explorer</h1>
-<p>Explore space and today's Astronomy Picture</p>
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="../index.html" class="back-link">Portfolio</a>
+    <div class="mission-id">Mission Log · Proshach Innovations · 2026</div>
+    <h1 class="site-title">NASA <span>Orbit</span> Explorer</h1>
+    <p class="site-subtitle">Real-time astronomy data · Powered by NASA Open APIs</p>
+    <div class="mission-clock">
+      <span class="clock-label">Mission Time</span>
+      <span class="clock-time" id="missionClock">00:00:00</span>
+    </div>
+  </header>
 
-</header>
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="status-item"><span class="status-dot"></span> API Link Active</div>
+    <div class="status-item"><span class="status-dot"></span> Orbit Simulation Running</div>
+    <div class="status-item"><span class="status-dot amber"></span> APOD Feed: Live</div>
+    <div class="status-item"><span class="status-dot"></span> Telemetry Nominal</div>
+  </div>
 
-<section class="orbit-section">
+  <div class="wrapper">
 
-<div id="orbit">
+    <!-- SOLAR SYSTEM SIMULATION -->
+    <section class="solar-section">
+      <p class="section-label">01 — Orbital Mechanics</p>
+      <h2 class="section-title">Inner Solar System Simulation</h2>
 
-<div class="planet earth"></div>
+      <div class="solar-canvas-wrap">
+        <canvas id="solarCanvas" width="560" height="560"></canvas>
+      </div>
 
-<div class="satellite sat1"></div>
-<div class="satellite sat2"></div>
-<div class="satellite sat3"></div>
+      <div class="orbit-data">
+        <div class="orbit-data-item">
+          <span class="orbit-data-value" id="earthDays">365</span>
+          <span class="orbit-data-label">Earth Days/Yr</span>
+        </div>
+        <div class="orbit-data-item">
+          <span class="orbit-data-value" id="simSpeed">1.0×</span>
+          <span class="orbit-data-label">Sim Speed</span>
+        </div>
+        <div class="orbit-data-item">
+          <span class="orbit-data-value">4</span>
+          <span class="orbit-data-label">Bodies Tracked</span>
+        </div>
+        <div class="orbit-data-item">
+          <span class="orbit-data-value" id="frameCount">0</span>
+          <span class="orbit-data-label">Frames</span>
+        </div>
+      </div>
+    </section>
 
-</div>
+    <!-- APOD -->
+    <section class="apod-section">
+      <p class="section-label">02 — Deep Space Imagery</p>
+      <h2 class="section-title">Astronomy Picture of the Day</h2>
 
-</section>
+      <div class="apod-panel">
+        <div class="apod-panel-bar">
+          <span class="apod-panel-title">NASA APOD · Image Feed</span>
+          <span class="apod-panel-status">
+            <span class="status-dot" style="width:5px;height:5px;flex-shrink:0"></span>
+            Feed Active
+          </span>
+        </div>
 
-<section class="apod">
+        <!-- Date navigation -->
+        <div style="padding: 0.9rem 1.5rem; border-bottom: 1px solid var(--border); display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; background: rgba(0,10,20,0.4);">
+          <button class="apod-nav-btn" id="prevDay">◀ Prev</button>
+          <input type="date" id="apod-date-input">
+          <button class="apod-nav-btn" id="nextDay">Next ▶</button>
+          <span id="apod-nav-label" style="font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);margin-left:auto;"></span>
+        </div>
 
-<h2>📸 Astronomy Picture of the Day</h2>
+        <div id="apod-container">
+          <div class="apod-loading">
+            <div class="loader-ring"></div>
+            <span>Acquiring Signal...</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div id="apod-container"></div>
+  </div><!-- /wrapper -->
 
-</section>
+  <footer class="site-footer">
+    <p>© 2026 Proshach Innovations · <a href="../index.html">Back to Portfolio</a></p>
+    <p>Data sourced from <a href="https://api.nasa.gov" target="_blank" rel="noopener">NASA Open APIs</a> · DEMO_KEY rate limited</p>
+  </footer>
 
-<script src="js/orbit.js"></script>
+  <script>
+  /* ============================================================
+     NASA ORBIT EXPLORER — main script
+     1. Starfield canvas
+     2. Solar system simulation canvas
+     3. Mission clock
+     4. APOD fetch + date navigation
+  ============================================================ */
+
+  /* ── 1. STARFIELD ─────────────────────────────────────────── */
+  (function() {
+    var canvas = document.getElementById('starfield');
+    var ctx    = canvas.getContext('2d');
+    var stars  = [];
+    var W, H;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function initStars(n) {
+      stars = [];
+      for (var i = 0; i < n; i++) {
+        stars.push({
+          x:    Math.random() * W,
+          y:    Math.random() * H,
+          r:    Math.random() * 1.4 + 0.2,
+          a:    Math.random(),
+          da:   (Math.random() - 0.5) * 0.004,
+          vx:   (Math.random() - 0.5) * 0.06,
+          vy:   (Math.random() - 0.5) * 0.06
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, W, H);
+      stars.forEach(function(s) {
+        s.x  = (s.x + s.vx + W) % W;
+        s.y  = (s.y + s.vy + H) % H;
+        s.a += s.da;
+        if (s.a > 1 || s.a < 0.1) s.da *= -1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(200, 230, 255, ' + s.a + ')';
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    resize();
+    initStars(320);
+    drawStars();
+    window.addEventListener('resize', function() { resize(); initStars(320); });
+  })();
+
+
+  /* ── 2. SOLAR SYSTEM CANVAS ───────────────────────────────── */
+  (function() {
+    var canvas = document.getElementById('solarCanvas');
+    var ctx    = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+    var cx = W / 2, cy = H / 2;
+    var frame = 0;
+    var speed = 1.0;
+
+    var bodies = [
+      // Sun
+      {
+        name: 'Sun', type: 'star',
+        r: 28, orbitR: 0, period: 0, angle: 0,
+        color: '#fff7a0', glow: '#ffcc00', glowSize: 50
+      },
+      // Mercury
+      {
+        name: 'Mercury', type: 'planet',
+        r: 5, orbitR: 70, period: 240, angle: Math.random() * Math.PI * 2,
+        color: '#b0a090', glow: '#d4c4a8', glowSize: 8
+      },
+      // Venus
+      {
+        name: 'Venus', type: 'planet',
+        r: 9, orbitR: 110, period: 615, angle: Math.random() * Math.PI * 2,
+        color: '#e8c47a', glow: '#ffd080', glowSize: 14
+      },
+      // Earth
+      {
+        name: 'Earth', type: 'planet',
+        r: 10, orbitR: 160, period: 1000, angle: Math.random() * Math.PI * 2,
+        color: '#3a9ad9', glow: '#5abcf0', glowSize: 16,
+        moons: [
+          { r: 3, orbitR: 20, period: 80, angle: 0, color: '#ccc' }
+        ]
+      },
+      // Mars
+      {
+        name: 'Mars', type: 'planet',
+        r: 7, orbitR: 215, period: 1880, angle: Math.random() * Math.PI * 2,
+        color: '#c1440e', glow: '#e86030', glowSize: 12
+      }
+    ];
+
+    function drawGlow(x, y, color, size, alpha) {
+      var grad = ctx.createRadialGradient(x, y, 0, x, y, size);
+      grad.addColorStop(0, color.replace(')', ', ' + alpha + ')').replace('rgb', 'rgba'));
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    function drawBody(b, x, y) {
+      // Glow
+      var glowGrad = ctx.createRadialGradient(x, y, b.r * 0.5, x, y, b.glowSize);
+      glowGrad.addColorStop(0, b.glow + '88');
+      glowGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(x, y, b.glowSize, 0, Math.PI * 2);
+      ctx.fillStyle = glowGrad;
+      ctx.fill();
+
+      // Body
+      var bodyGrad = ctx.createRadialGradient(x - b.r * 0.3, y - b.r * 0.3, b.r * 0.1, x, y, b.r);
+      bodyGrad.addColorStop(0, b.type === 'star' ? '#fffde0' : lighten(b.color));
+      bodyGrad.addColorStop(1, b.color);
+      ctx.beginPath();
+      ctx.arc(x, y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = bodyGrad;
+      ctx.fill();
+
+      // Label
+      ctx.font = '9px "Share Tech Mono"';
+      ctx.fillStyle = 'rgba(200,230,255,0.5)';
+      ctx.textAlign = 'center';
+      ctx.fillText(b.name.toUpperCase(), x, y + b.r + 14);
+    }
+
+    function lighten(hex) {
+      // Quick lighten for gradient highlight
+      return hex;
+    }
+
+    function tick() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Draw orbit rings
+      bodies.forEach(function(b) {
+        if (b.orbitR === 0) return;
+        ctx.beginPath();
+        ctx.arc(cx, cy, b.orbitR, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(0,180,255,0.1)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 8]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+
+      // Update + draw bodies
+      bodies.forEach(function(b) {
+        var x, y;
+        if (b.orbitR === 0) {
+          x = cx; y = cy;
+        } else {
+          b.angle += (speed * Math.PI * 2) / (b.period * 0.6);
+          x = cx + Math.cos(b.angle) * b.orbitR;
+          y = cy + Math.sin(b.angle) * b.orbitR;
+        }
+
+        // Draw moons first
+        if (b.moons) {
+          b.moons.forEach(function(m) {
+            m.angle += (speed * Math.PI * 2) / (m.period * 0.6);
+            var mx = x + Math.cos(m.angle) * m.orbitR;
+            var my = y + Math.sin(m.angle) * m.orbitR;
+            // Moon orbit
+            ctx.beginPath();
+            ctx.arc(x, y, m.orbitR, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(200,200,200,0.12)';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+            // Moon body
+            ctx.beginPath();
+            ctx.arc(mx, my, m.r, 0, Math.PI * 2);
+            ctx.fillStyle = m.color;
+            ctx.fill();
+          });
+        }
+
+        drawBody(b, x, y);
+      });
+
+      // Update counters
+      frame++;
+      if (frame % 4 === 0) {
+        document.getElementById('frameCount').textContent = frame;
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    tick();
+
+    // Speed control on click
+    canvas.addEventListener('click', function() {
+      speed = speed >= 4 ? 0.5 : speed * 2;
+      document.getElementById('simSpeed').textContent = speed.toFixed(1) + '×';
+    });
+    canvas.title = 'Click to change simulation speed';
+    canvas.style.cursor = 'pointer';
+  })();
+
+
+  /* ── 3. MISSION CLOCK ─────────────────────────────────────── */
+  (function() {
+    var start = Date.now();
+    function update() {
+      var elapsed = Date.now() - start;
+      var h = Math.floor(elapsed / 3600000);
+      var m = Math.floor((elapsed % 3600000) / 60000);
+      var s = Math.floor((elapsed % 60000) / 1000);
+      document.getElementById('missionClock').textContent =
+        pad(h) + ':' + pad(m) + ':' + pad(s);
+    }
+    function pad(n) { return n < 10 ? '0' + n : n; }
+    setInterval(update, 1000);
+    update();
+  })();
+
+
+  /* ── 4. APOD FETCH ────────────────────────────────────────── */
+  (function() {
+    var API_KEY  = 'DEMO_KEY';
+    var today    = new Date().toISOString().split('T')[0];
+    var minDate  = '1995-06-16'; // first APOD
+    var currentDate = today;
+
+    var dateInput  = document.getElementById('apod-date-input');
+    var prevBtn    = document.getElementById('prevDay');
+    var nextBtn    = document.getElementById('nextDay');
+    var navLabel   = document.getElementById('apod-nav-label');
+    var container  = document.getElementById('apod-container');
+
+    dateInput.value = today;
+    dateInput.max   = today;
+    dateInput.min   = minDate;
+
+    function offsetDate(dateStr, days) {
+      var d = new Date(dateStr);
+      d.setDate(d.getDate() + days);
+      return d.toISOString().split('T')[0];
+    }
+
+    function updateNav() {
+      prevBtn.disabled = (currentDate <= minDate);
+      nextBtn.disabled = (currentDate >= today);
+      var d = new Date(currentDate);
+      navLabel.textContent = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function showLoading() {
+      container.innerHTML = '<div class="apod-loading"><div class="loader-ring"></div><span>Acquiring Signal...</span></div>';
+    }
+
+    function showError(msg) {
+      container.innerHTML =
+        '<div class="apod-loading" style="color:var(--red)">' +
+        '<span style="font-size:1.4rem">⚠</span>' +
+        '<span>' + msg + '</span>' +
+        '<button class="apod-nav-btn" onclick="location.reload()">Retry</button>' +
+        '</div>';
+    }
+
+    function renderAPOD(data) {
+      var mediaHTML = '';
+
+      if (data.media_type === 'video') {
+        mediaHTML =
+          '<iframe src="' + data.url + '" frameborder="0" allowfullscreen ' +
+          'style="width:100%;height:100%;min-height:420px;border:0;display:block;"></iframe>';
+      } else {
+        var hdSrc = data.hdurl || data.url;
+        mediaHTML =
+          '<img src="' + data.url + '" ' +
+          'alt="' + (data.title || 'APOD') + '" ' +
+          'loading="lazy" ' +
+          'onerror="this.src=\'' + data.url + '\'">' +
+          '<div class="apod-scan"></div>';
+      }
+
+      var copyright = data.copyright
+        ? '<span>© ' + data.copyright.trim() + '</span>'
+        : '<span>Public Domain · NASA</span>';
+
+      container.innerHTML =
+        '<div class="apod-body fade-in">' +
+          '<div class="apod-image-wrap">' + mediaHTML + '</div>' +
+          '<div class="apod-info">' +
+            '<div>' +
+              '<div class="apod-date-badge">📅 ' + data.date + '</div>' +
+              '<h3 class="apod-title">' + (data.title || 'Untitled') + '</h3>' +
+              '<p class="apod-explanation">' + (data.explanation || '') + '</p>' +
+            '</div>' +
+            '<div>' +
+              '<div class="apod-nav">' +
+                '<button class="apod-nav-btn" id="prevDay2">◀ Prev</button>' +
+                '<button class="apod-nav-btn" id="nextDay2"' + (currentDate >= today ? ' disabled' : '') + '>Next ▶</button>' +
+              '</div>' +
+              '<div class="apod-copyright" style="margin-top:0.8rem">' + copyright + '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+
+      // Wire up inline nav buttons too
+      var p2 = document.getElementById('prevDay2');
+      var n2 = document.getElementById('nextDay2');
+      if (p2) p2.addEventListener('click', function() { navigate(-1); });
+      if (n2) n2.addEventListener('click', function() { navigate(1); });
+    }
+
+    function fetchAPOD(date) {
+      showLoading();
+      currentDate = date;
+      dateInput.value = date;
+      updateNav();
+
+      var url = 'https://api.nasa.gov/planetary/apod?api_key=' + API_KEY + '&date=' + date;
+
+      fetch(url)
+        .then(function(res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function(data) {
+          if (data.error) throw new Error(data.error.message || 'API error');
+          renderAPOD(data);
+        })
+        .catch(function(err) {
+          showError('Signal lost · ' + err.message);
+        });
+    }
+
+    function navigate(dir) {
+      var next = offsetDate(currentDate, dir);
+      if (next < minDate || next > today) return;
+      fetchAPOD(next);
+    }
+
+    prevBtn.addEventListener('click', function() { navigate(-1); });
+    nextBtn.addEventListener('click', function() { navigate(1); });
+    dateInput.addEventListener('change', function() {
+      if (dateInput.value) fetchAPOD(dateInput.value);
+    });
+
+    // Initial load
+    fetchAPOD(today);
+  })();
+  </script>
 
 </body>
 </html>
